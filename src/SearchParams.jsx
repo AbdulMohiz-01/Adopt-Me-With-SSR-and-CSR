@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useContext } from "react";
-import AdoptedPetContext from "./AdoptedPetContext.js";
 import useBreedList from "./useBreedList.js";
 import Results from "./Results.jsx";
 import fetchSearch from "./fetchSearch.js";
 import { useQuery } from "@tanstack/react-query";
+import AdoptedPetContext from "./AdoptedPetContext.js";
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
@@ -26,8 +26,9 @@ export default function SearchParams() {
   // The reason that why we gave the [] if there is nothing is that we wrote a logic in Results that if the pets are null then you should display pet not found. we could've put some loading there but that's our own choice.
   const pets = res.data?.pets ?? [];
   return (
-    <div className="search-params">
+    <div className="my-0 mx-auto w-11/12">
       <form
+        className="p-10 mb-10 rounded-lg bg-gray-200 flex flex-col justify-center items-center"
         onSubmit={(e) => {
           e.preventDefault();
 
@@ -42,18 +43,29 @@ export default function SearchParams() {
       >
         {console.log(adoptedPet)}
         {adoptedPet ? (
-          <div className="pet image-container">
-            <img src={adoptedPet} alt={adoptedPet.name} />
+          <div className="w-52 h-52">
+            <img
+              src={adoptedPet}
+              alt={adoptedPet.name}
+              className="rounded-full"
+            />
           </div>
         ) : null}
         <label htmlFor="location">
           Location
-          <input name="location" id="location" placeholder="Location" />
+          <input
+            type="text"
+            className="search-input"
+            name="location"
+            id="location"
+            placeholder="Location"
+          />
         </label>
 
         <label htmlFor="animal">
           Animal
           <select
+            className="search-input"
             name="animal"
             id="animal"
             value={animal}
@@ -72,7 +84,12 @@ export default function SearchParams() {
 
         <label htmlFor="breed">
           Breed
-          <select id="breed" disabled={!breeds.length} name="breed">
+          <select
+            className="search-input grayed-out-disabled"
+            id="breed"
+            disabled={!breeds.length}
+            name="breed"
+          >
             <option />
             {breeds.map((breed) => (
               <option value={breed} key={breed}>
@@ -81,7 +98,9 @@ export default function SearchParams() {
             ))}
           </select>
         </label>
-        <button>Submit</button>
+        <button className="rounded px-6 py-2 text-white bg-orange-500 hover:opacity-50">
+          Submit
+        </button>
       </form>
 
       <Results pets={pets} />

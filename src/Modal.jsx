@@ -14,7 +14,10 @@ const Modal = ({ children }) => {
   }, []);
 
   // createPortal takes two arguments, the first is the element you want to render, the second is the element you want to render it in. The reason that why I put the div in the first argument is cuz my .css classes require it. I don't want to put the div directly in the modleRoot
-  return createPortal(<div>{children}</div>, elRef.current);
+  return createPortal(
+    <div className="bg-white rounded-lg shadow-lg p-6">{children}</div>,
+    elRef.current
+  );
 };
 
 export default Modal;
